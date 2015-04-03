@@ -14,7 +14,7 @@ Puppet module to configure an nfs-ganesha server.
 
 ## Parameters
 
-The module accepts the an hash of parameters called **exports**.
+The module accepts an hash of parameters called **exports**.
 Each block corresponds to an export and the key is the export ID.
 The available parameters for each exports are:
 
