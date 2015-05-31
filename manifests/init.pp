@@ -58,7 +58,8 @@ class ganesha (
       owner   => 'root',
       group   => 'root',
       mode    => 0644,
-      content => template("${module_name}/export.conf.erb")
+      content => template("${module_name}/export.conf.erb"),
+      notify  => Service[$ganesha::params::ganesha_service]
    }
 
    file { $ganesha::params::ganesha_conf:
@@ -67,7 +68,8 @@ class ganesha (
       group   => 'root',
       mode    => 0644,
       content => template("${module_name}/ganesha.nfsd.conf.erb"),
-      require => File[$ganesha_exports]
+      require => File[$ganesha_exports],
+      notify  => Service[$ganesha::params::ganesha_service]
    }
 
    service { $ganesha::params::ganesha_service:
