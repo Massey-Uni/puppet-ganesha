@@ -21,7 +21,7 @@ The available parameters for each exports are:
 * **path**: Path of the volume to be exported. Eg: "/test_vol"
 * **hostname**: IP of one of the nodes in the trusted pool
 * **volume**: Volume name. Eg: "test_vol"
-* **pseudo_path**: # NFSv4 pseudo path for this export. Eg: "/test_vol_pseudo"
+* **pseudo_path**: NFSv4 pseudo path for this export. Eg: "/test_vol_pseudo"
 
 
 ## Usage example

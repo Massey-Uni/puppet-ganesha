@@ -5,7 +5,11 @@ EXPORT{
 
 	FSAL { 
 		name = GLUSTER;
+<% if export['hostname'] -%>
 		hostname = "<%= export['hostname'] %>";
+<% else -%>
+		hostname = "<%= @fqdn %>";
+<% end -%>
 		volume = "<%= export['volume'] %>";
 	}
 
