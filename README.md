@@ -44,6 +44,11 @@ class { 'ganesha':
              }
 }
 ```
+Additional parameter to the module, for HA, are:
+* **ha**: Enable (true) or disable (false) the HA features
+* **ha_name**: The HA cluster name, unique string
+* **ha_vol_server**: The server from which you intend to mount the shared volume
+* **ha_vips**: Hash of "server_name" => "VIP"
 
 ## Limitations
 

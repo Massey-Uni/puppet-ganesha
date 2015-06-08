@@ -1,0 +1,13 @@
+# Name of the HA cluster created.
+HA_NAME="<%= ha_name %>"
+# The server from which you intend to mount
+# the shared volume.
+HA_VOL_SERVER="<%= ha_vol_server %>"
+# The subset of nodes of the Gluster Trusted Pool
+# that forms the ganesha HA cluster. IP/Hostname
+# is specified.
+HA_CLUSTER_NODES="<%= ha_cluster_nodes %>"
+# Virtual IPs of each of the nodes specified above.
+<% ha_cluster_nodes.each do |node| -%>
+VIP_<%= node %>="<%= ha_vips[node] %>"
+<% end -%>
