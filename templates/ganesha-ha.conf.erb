@@ -9,5 +9,5 @@ HA_VOL_SERVER="<%= ha_vol_server %>"
 HA_CLUSTER_NODES="<%= ha_cluster_nodes %>"
 # Virtual IPs of each of the nodes specified above.
 <% ha_vips.keys.sort.each do |node| -%>
-VIP_<%= node %>="<%= ha_vips[node] %>"
+VIP_<%= node.gsub(/-/, "_") %>="<%= ha_vips[node] %>"
 <% end -%>
