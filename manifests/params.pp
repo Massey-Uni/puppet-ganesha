@@ -1,7 +1,7 @@
 class ganesha::params {
     case $osfamily {
       'RedHat': {
-         $ganesha_pkgs         = [ 'nfs-ganesha', 'nfs-ganesha-fsal-gluster' ]
+         $ganesha_pkgs         = [ 'nfs-ganesha' ]
          $ganesha_gluster_pkgs = [ 'nfs-ganesha-fsal-gluster' ]
          $ganesha_exports      = '/etc/export.conf'
          $ganesha_conf         = '/etc/ganesha.nfsd.conf'
