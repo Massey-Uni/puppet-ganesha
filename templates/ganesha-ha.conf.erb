@@ -8,6 +8,6 @@ HA_VOL_SERVER="<%= ha_vol_server %>"
 # is specified.
 HA_CLUSTER_NODES="<%= ha_cluster_nodes %>"
 # Virtual IPs of each of the nodes specified above.
-<% ha_cluster_nodes.each do |node| -%>
+<% ha_vips.keys.sort.each do |node| -%>
 VIP_<%= node %>="<%= ha_vips[node] %>"
 <% end -%>

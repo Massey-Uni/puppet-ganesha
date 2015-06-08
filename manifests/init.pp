@@ -107,7 +107,7 @@ class ganesha (
      file { $ganesha_exports: ensure => absent }
      file { $ganesha::params::ganesha_conf: ensure => absent }
 
-     $ha_cluster_nodes = join(sort(keys($ha_vips)))
+     $ha_cluster_nodes = join(sort(keys($ha_vips)),",")
 
      file { $ganesha::params::ganesha_ha_conf1:
         ensure  => present,
