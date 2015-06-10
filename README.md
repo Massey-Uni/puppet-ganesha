@@ -45,10 +45,20 @@ class { 'ganesha':
 }
 ```
 Additional parameter to the module, for HA, are:
+* **ganesha_conf**: Ganesha configuration file
+* **ganesha_ha_conf**: Ganesha HA configuration file. Defaults to /etc/ganesha/ganesha.conf
+* **exports_conf**: Ganesha exports configuration file. Default is /etc/ganesha/exports.conf
+* **ganesha_logfile**: Ganesha log file. Defaults to /var/log/ganesha.log
+* **ganesha_debuglevel**: Ganesha debug level. Can be one of NIV_NULL, NIV_MAJ, NIV_CRIT, NIV_EVENT, NIV_DEBUG, NIV_MID_DEBUG or NIV_FULL_DEBUG. Defaults is NIV_EVENT.
+* **ganesha_pidfile**: Ganesha pid file. Default is /var/run/ganesha.nfsd.pid
+* **enable**: Enable mode for the ganesha service
+* **ensure**: Ensure mode for the ganesha service
 * **ha**: Enable (true) or disable (false) the HA features
 * **ha_name**: The HA cluster name, unique string
 * **ha_vol_server**: The server from which you intend to mount the shared volume
 * **ha_vips**: Hash of "server_name" => "VIP"
+* **rquota_port**: Port to be used by the rquota RPC. Defaults to 4501
+
 
 ## Limitations
 
