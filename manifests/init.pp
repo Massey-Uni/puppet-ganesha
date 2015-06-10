@@ -7,6 +7,9 @@
 # [*ganesha_conf*]
 #   Ganesha configuration file
 #
+# [*ganesha_sysconf*]
+#   Ganesha sysconf configuration file
+#
 # [*ganesha_ha_conf*]
 #   Ganesha HA configuration file
 #
@@ -82,6 +85,7 @@
 
 class ganesha (
    $ganesha_conf       = $ganesha::params::ganesha_conf,
+   $ganesha_sysconf    = $ganesha::params::ganesha_sysconf,
    $ganesha_ha_conf    = $ganesha::params::ganesha_ha_conf,
    $exports_conf       = $ganesha::params::exports_conf,
    $ganesha_logfile    = $ganesha::params::ganesha_logfile,
@@ -133,15 +137,6 @@ class ganesha (
         notify  => Service[$ganesha::params::ganesha_service]
      }
 
-     file { $ganesha_sysconf:
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => 0644,
-        content => template("${module_name}/ganesha_sysconf.erb"),
-        notify  => Service[$ganesha::params::ganesha_service]
-     }
-
      $ganesha_require = [File[$ganesha_conf]]
    } else {
      file { $exports_conf: ensure => absent }
@@ -168,6 +163,15 @@ class ganesha (
      }
 
      $ganesha_require = [File[$ganesha_conf],File[$ganesha_ha_conf]]
+   }
+
+   file { $ganesha_sysconf:
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => 0644,
+      content => template("${module_name}/ganesha.sysconf.erb"),
+      notify  => Service[$ganesha::params::ganesha_service]
    }
 
    service { $ganesha::params::ganesha_service:

@@ -46,6 +46,7 @@ class { 'ganesha':
 ```
 Additional parameter to the module, for HA, are:
 * **ganesha_conf**: Ganesha configuration file
+* **ganesha_sysconf**: Ganesha sysconf configuration file
 * **ganesha_ha_conf**: Ganesha HA configuration file. Defaults to /etc/ganesha/ganesha.conf
 * **exports_conf**: Ganesha exports configuration file. Default is /etc/ganesha/exports.conf
 * **ganesha_logfile**: Ganesha log file. Defaults to /var/log/ganesha.log

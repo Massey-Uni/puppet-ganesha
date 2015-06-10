@@ -7,6 +7,7 @@ class ganesha::params {
          $ganesha_conf         = '/etc/ganesha/ganesha.conf'
          $ganesha_ha_conf      = '/etc/ganesha/ganesha-ha.conf'
          $ganesha_service      = 'nfs-ganesha'
+         $ganesha_sysconf      = '/etc/sysconfig/ganesha'
          $ganesha_repo         = "/etc/yum.repos.d/nfs-ganesha.repo"
          $ganesha_logfile      = "/var/log/ganesha.log"
          $ganesha_debuglevel   = "NIV_EVENT"
