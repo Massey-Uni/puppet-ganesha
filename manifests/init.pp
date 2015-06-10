@@ -84,9 +84,9 @@ class ganesha (
    $ganesha_conf       = $ganesha::params::ganesha_conf,
    $ganesha_ha_conf    = $ganesha::params::ganesha_ha_conf,
    $exports_conf       = $ganesha::params::exports_conf,
-   $ganesha_logfile    = $ganesha::params::ganesha_logfile
-   $ganesha_debuglevel = $ganesha::params::ganesha_debuglevel
-   $ganesha_pidfile    = $ganesha::params::ganesha_pidfile
+   $ganesha_logfile    = $ganesha::params::ganesha_logfile,
+   $ganesha_debuglevel = $ganesha::params::ganesha_debuglevel,
+   $ganesha_pidfile    = $ganesha::params::ganesha_pidfile,
    $enable             = true,
    $ensure             = 'running',
    $exports            = {},
