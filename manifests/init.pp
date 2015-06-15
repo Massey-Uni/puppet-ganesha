@@ -113,7 +113,7 @@ class ganesha (
      notify => Exec['cleanup-ganesha-config'],
    }
 
-   Exec { 'cleanup-ganesha-config':
+   exec { 'cleanup-ganesha-config':
      path        => ['/bin', '/usr/bin'],
      command     => "rm -f $ganesha_conf",
      refreshonly => true,
