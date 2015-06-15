@@ -110,14 +110,12 @@ class ganesha (
    package { $ganesha::params::ganesha_pkgs:
      ensure => installed,
      require => File[$ganesha::params::ganesha_repo],
-     notify => Exec['cleanup-ganesha-config'],
    }
 
    exec { 'cleanup-ganesha-config':
      path        => ['/bin', '/usr/bin'],
      command     => "rm -f $ganesha_conf",
-     refreshonly => true,
-     unless      => "test -s $ganesha_conf",
+     unless      => "grep \"^%include.*$ganesha_opts_conf\" $ganesha_conf",
      notify      => File[$ganesha_conf],
    }
 
@@ -163,7 +161,7 @@ class ganesha (
         group   => 'root',
         mode    => 0644,
         content => template("${module_name}/ganesha_ha.conf.erb"),
-        require => File[$ganesha_opts_conf],
+        require => [File[$ganesha_opts_conf],Exec['cleanup-ganesha-config']],
         notify  => Service[$ganesha::params::ganesha_service]
      }
 
