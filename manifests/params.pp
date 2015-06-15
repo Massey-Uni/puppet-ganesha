@@ -5,6 +5,7 @@ class ganesha::params {
          $ganesha_gluster_pkgs = [ 'nfs-ganesha-fsal-gluster' ]
          $exports_conf         = '/etc/ganesha/export.conf'
          $ganesha_conf         = '/etc/ganesha/ganesha.conf'
+         $ganesha_opts_conf    = '/etc/ganesha/ganesha-opts.conf'
          $ganesha_ha_conf      = '/etc/ganesha/ganesha-ha.conf'
          $ganesha_service      = 'nfs-ganesha'
          $ganesha_sysconf      = '/etc/sysconfig/ganesha'
@@ -12,7 +13,7 @@ class ganesha::params {
          $ganesha_logfile      = "/var/log/ganesha.log"
          $ganesha_debuglevel   = "NIV_EVENT"
          $ganesha_pidfile      = "/var/run/ganesha.nfsd.pid"
-         $rquota_port          = 4501
+         $rquota_port          = 875
       }
       default: {
          fail ("OS type $osversion is not supported")

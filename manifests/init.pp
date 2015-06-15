@@ -7,6 +7,9 @@
 # [*ganesha_conf*]
 #   Ganesha configuration file
 #
+# [*ganesha_opts_conf*]
+#   Ganesha options configuration file
+#
 # [*ganesha_sysconf*]
 #   Ganesha sysconf configuration file
 #
@@ -85,6 +88,7 @@
 
 class ganesha (
    $ganesha_conf       = $ganesha::params::ganesha_conf,
+   $ganesha_opts_conf  = $ganesha::params::ganesha_opts_conf,
    $ganesha_sysconf    = $ganesha::params::ganesha_sysconf,
    $ganesha_ha_conf    = $ganesha::params::ganesha_ha_conf,
    $exports_conf       = $ganesha::params::exports_conf,
@@ -105,7 +109,16 @@ class ganesha (
 
    package { $ganesha::params::ganesha_pkgs:
      ensure => installed,
-     require => File[$ganesha::params::ganesha_repo]
+     require => File[$ganesha::params::ganesha_repo],
+     notify => Exec['cleanup-ganesha-config'],
+   }
+
+   Exec { 'cleanup-ganesha-config':
+     path        => ['/bin', '/usr/bin'],
+     command     => "rm -f $ganesha_conf",
+     refreshonly => true,
+     onlyif      => "test -s $ganesha_conf",
+     notify      => File[$ganesha_conf],
    }
 
    case $fsal {
@@ -129,7 +142,6 @@ class ganesha (
 
      file { $ganesha_conf:
         ensure  => present,
-        replace => false,
         owner   => 'root',
         group   => 'root',
         mode    => 0644,
@@ -151,6 +163,16 @@ class ganesha (
         group   => 'root',
         mode    => 0644,
         content => template("${module_name}/ganesha_ha.conf.erb"),
+        require => File[$ganesha_opts_conf],
+        notify  => Service[$ganesha::params::ganesha_service]
+     }
+
+     file { $ganesha_opts_conf:
+        ensure  => present,
+        owner   => 'root',
+        group   => 'root',
+        mode    => 0644,
+        content => template("${module_name}/ganesha_ha_opts.conf.erb"),
         notify  => Service[$ganesha::params::ganesha_service]
      }
 
