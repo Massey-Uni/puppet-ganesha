@@ -129,6 +129,7 @@ class ganesha (
 
      file { $ganesha_conf:
         ensure  => present,
+        replace => false,
         owner   => 'root',
         group   => 'root',
         mode    => 0644,
@@ -145,6 +146,7 @@ class ganesha (
 
      file { $ganesha_conf:
         ensure  => present,
+        replace => false,
         owner   => 'root',
         group   => 'root',
         mode    => 0644,
