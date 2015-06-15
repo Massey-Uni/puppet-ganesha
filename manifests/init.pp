@@ -117,7 +117,7 @@ class ganesha (
      path        => ['/bin', '/usr/bin'],
      command     => "rm -f $ganesha_conf",
      refreshonly => true,
-     onlyif      => "test -s $ganesha_conf",
+     unless      => "test -s $ganesha_conf",
      notify      => File[$ganesha_conf],
    }
 
