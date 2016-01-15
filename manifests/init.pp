@@ -52,6 +52,9 @@
 # [*ha_vol_server*]
 #   The server from which you intend to mount the shared volume
 #
+# [*ha_vol_name*]
+#   The name of the shared volume
+#
 # [*ha_vips*]
 #   Hash of "server_name" => "VIP"
 #
@@ -87,6 +90,7 @@
 #
 
 class ganesha (
+   $ganesha_version    = $ganesha::params::ganesha_version,
    $ganesha_conf       = $ganesha::params::ganesha_conf,
    $ganesha_opts_conf  = $ganesha::params::ganesha_opts_conf,
    $ganesha_sysconf    = $ganesha::params::ganesha_sysconf,
@@ -102,10 +106,12 @@ class ganesha (
    $ha                 = false,
    $ha_name            = undef,
    $ha_vol_server      = undef,
+   $ha_vol_name        = 'gluster_shared_storage',
    $ha_vips            = {},
    $rquota_port        = $ganesha::params::rquota_port
 ) inherits ganesha::params {
-   include ganesha::repo
+
+   class { ganesha::repo: ganesha_version => $ganesha_version }
 
    package { $ganesha::params::ganesha_pkgs:
      ensure => installed,
@@ -144,13 +150,39 @@ class ganesha (
         group   => 'root',
         mode    => 0644,
         content => template("${module_name}/ganesha_noha.conf.erb"),
-        require => File[$ganesha_exports],
+        require => File[$exports_conf],
         notify  => Service[$ganesha::params::ganesha_service]
      }
 
      $ganesha_require = [File[$ganesha_conf]]
    } else {
      file { $exports_conf: ensure => absent }
+
+     $shared_storage_location = $ganesha::params::shared_storage_mountpoint
+     file { $shared_storage_location:
+        ensure => 'directory',
+        owner  => 'root',
+        group  => 'root',
+        mode   => '0755',
+     }
+
+     mount { $shared_storage_location:
+        ensure => mounted,
+        device => "${ha_vol_server}:/${ha_vol_name}",
+        fstype => 'glusterfs',
+        options => '_netdev,defaults',
+        notify  => Service[$ganesha::params::ganesha_service]
+     }
+
+     if ($operatingsystemmajrelease >= 7) {
+       file { $ganesha::params::shared_storage_tmpconfig:
+          ensure => present,
+          owner  => 'root',
+          group  => 'root',
+          mode   => 0755,
+          content => template("${module_name}/shared_storage.erb"),
+       }
+     }
 
      $ha_cluster_nodes = join(sort(keys($ha_vips)),",")
 
@@ -184,7 +216,7 @@ class ganesha (
         notify  => Service[$ganesha::params::ganesha_service]
      }
 
-     $ganesha_require = [File[$ganesha_conf],File[$ganesha_ha_conf]]
+     $ganesha_require = [File[$ganesha_conf],File[$ganesha_ha_conf],Mount[$shared_storage_location]]
    }
 
    file { $ganesha_sysconf:
@@ -196,9 +228,17 @@ class ganesha (
       notify  => Service[$ganesha::params::ganesha_service]
    }
 
-   service { $ganesha::params::ganesha_service:
-      ensure  => $ensure,
-      enable  => $enable,
-      require => $ganesha_require,
+   if ($ha) {
+     service { $ganesha::params::ganesha_service:
+        enable => false,
+        ensure => $ensure,
+        require => $ganesha_require,
+     }
+   } else {
+     service { $ganesha::params::ganesha_service:
+        ensure  => $ensure,
+        enable  => $enable,
+        require => $ganesha_require,
+     }
    }
 }

@@ -1,0 +1,15 @@
+# Place this file in your /etc/yum.repos.d/ directory
+
+[nfs-ganesha-epel]
+name=NFS-Ganesha
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/nfs-ganesha/<%= @ganesha_version %>/EPEL.repo/epel-$releasever/$basearch/
+enabled=1
+skip_if_unavailable=1
+gpgcheck=0
+
+[nfs-ganesha-source-epel]
+name=NFS-Ganesha
+baseurl=http://download.gluster.org/pub/gluster/glusterfs/nfs-ganesha/<%= @ganesha_version %>/EPEL.repo/epel-$releasever/SRPMS
+enabled=0
+skip_if_unavailable=1
+gpgcheck=0
