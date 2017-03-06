@@ -15,7 +15,7 @@ class ganesha::params {
          $ganesha_debuglevel        = "NIV_EVENT"
          $ganesha_pidfile           = "/var/run/ganesha.pid"
          $rquota_port               = 875
-         if ($operatingsystem != 'Fedora' and $operatingsystemmajrelease < 7) {
+         if ($operatingsystem != 'Fedora' and ($operatingsystemmajrelease + 0) < 7) {
            $shared_storage_mountpoint = '/var/run/gluster/shared_storage'
          } else {
            $shared_storage_mountpoint = '/run/gluster/shared_storage'
