@@ -174,7 +174,7 @@ class ganesha (
         notify  => Service[$ganesha::params::ganesha_service]
      }
 
-     if ($operatingsystemmajrelease >= 7) {
+     if (($operatingsystemmajrelease + 0) >= 7) {
        file { $ganesha::params::shared_storage_tmpconfig:
           ensure => present,
           owner  => 'root',
