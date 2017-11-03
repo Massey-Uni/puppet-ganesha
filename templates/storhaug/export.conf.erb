@@ -1,0 +1,6 @@
+<% @exports.each do |export,data| -%>
+<% filename = sprintf("%s/%02d-%s.conf", @export_dir, data['id'], export) -%>
+<% if !data.has_key?('ensure') or (data.has_key?('ensure') and data['ensure'] == 'present') -%>
+%include "<%= filename %>"
+<% end -%>
+<% end -%>

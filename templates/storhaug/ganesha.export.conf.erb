@@ -1,0 +1,16 @@
+EXPORT{
+      Export_Id= <%= @id %>;
+      Path = "/<%= @title %>";
+      FSAL {
+           name = "GLUSTER";
+           hostname="localhost";
+           volume="<%= @title %>";
+           }
+      Access_type = RW;
+      Disable_ACL = true;
+      Squash="No_root_squash";
+      Pseudo="/<%= @title %>";
+      Protocols = "3", "4" ;
+      Transports = "UDP","TCP";
+      SecType = "sys";
+}

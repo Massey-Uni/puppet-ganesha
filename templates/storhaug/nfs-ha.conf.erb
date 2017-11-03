@@ -1,0 +1,15 @@
+# Type of storage used for the shared NFS state.
+HA_NFS_TYPE="<%= @ha_nfs_type %>"
+
+# Shared volume to store NFS state.
+HA_NFS_VOL="<%= @ha_nfs_vol %>"
+<% if @ha_nfs_mnt_dir -%>
+
+# [OPTIONAL] Mount point for shared volume.
+HA_NFS_MNT_DIR="<%= @ha_nfs_mnt_dir %>"
+<% end -%>
+<% if @ha_nfs_conf -%>
+
+# [OPTIONAL] Config file for NFS. If not specified, we'll will try to find it.
+HA_NFS_CONF="<%= @ha_nfs_conf %>"
+<% end -%>

@@ -1,22 +1,22 @@
 <% exports.each do |expid,export| -%>
 EXPORT{
 	Export_Id = <%= expid %>;
-	Path = "<%= export['path'] %>";
+	Path = "<%= @export['path'] %>";
 
 	FSAL { 
 		name = GLUSTER;
 <% if export['hostname'] -%>
-		hostname = "<%= export['hostname'] %>";
+		hostname = "<%= @export['hostname'] %>";
 <% else -%>
 		hostname = "<%= @fqdn %>";
 <% end -%>
-		volume = "<%= export['volume'] %>";
+		volume = "<%= @export['volume'] %>";
 	}
 
 	Access_type = RW;
 	Squash = No_root_squash;
 	Disable_ACL = TRUE;
-	Pseudo = "<%= export['pseudo_path'] %>";
+	Pseudo = "<%= @export['pseudo_path'] %>";
 	Protocols = "3,4";
 	Transports = "UDP,TCP";
 	SecType = "sys";

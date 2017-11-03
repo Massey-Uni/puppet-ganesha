@@ -1,0 +1,10 @@
+# Type of storage used for the CTDB reclock file.
+HA_SMB_TYPE="<%= @ha_smb_type %>"
+
+# Shared volume hosting the CTDB reclock file.
+HA_SMB_VOL="<%= @ha_smb_vol %>"
+<% if @ha_smb_mnt_dir -%>
+
+# [OPTIONAL] Mount point for shared volume.
+HA_SMB_MNT_DIR="<%= @ha_smb_mnt_dir %>"
+<% end -%>

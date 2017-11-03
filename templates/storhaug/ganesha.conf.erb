@@ -1,0 +1,7 @@
+EXPORT_DEFAULTS {
+       # To reflect nfsnobody
+        Anonymous_uid = 65534;
+        Anonymous_gid = 65534;
+}
+
+%include "<%= @ganesha_export_conf %>"
