@@ -120,7 +120,7 @@ class ganesha (
 
    package { $ganesha::params::ganesha_pkgs:
      ensure => installed,
-     require => File[$ganesha::params::ganesha_repo],
+     #require => File[$ganesha::params::ganesha_repo],
    }
 
    exec { 'cleanup-ganesha-config':
@@ -130,14 +130,14 @@ class ganesha (
      notify      => File[$ganesha_conf],
    }
 
-   case $fsal {
-     'gluster': {
-       package { $ganesha::params::ganesha_gluster_pkgs:
-         ensure  => installed,
-         require => File[$ganesha::params::ganesha_repo]
-       }
-     }
-   }
+   # case $fsal {
+   #   'gluster': {
+   #     package { $ganesha::params::ganesha_gluster_pkgs:
+   #       ensure  => installed,
+   #       require => File[$ganesha::params::ganesha_repo]
+   #     }
+   #   }
+   # }
 
    if (!$ha) {
      file { $exports_conf:

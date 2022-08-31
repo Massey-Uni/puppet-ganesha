@@ -1,8 +1,8 @@
 class ganesha::params {
     case $osfamily {
       'RedHat': {
-         $ganesha_version           = '2.3.0'
-         $ganesha_pkgs              = [ 'nfs-ganesha' ]
+         $ganesha_version           = '4'
+         $ganesha_pkgs              = [ 'nfs-ganesha-gluster' ]
          $ganesha_gluster_pkgs      = [ 'nfs-ganesha-fsal-gluster' ]
          $exports_conf              = '/etc/ganesha/export.conf'
          $ganesha_conf              = '/etc/ganesha/ganesha.conf'
@@ -21,6 +21,7 @@ class ganesha::params {
          $storhaug_pkgs             = ['storhaug','storhaug-nfs','storhaug-smb']
          $storhaug_nfs_conf         = '/etc/sysconfig/storhaug.d/nfs-ha.conf'
          $storhaug_smb_conf         = '/etc/sysconfig/storhaug.d/smb-ha.conf'
+         $repo_gpg_key_source  = 'https://raw.githubusercontent.com/CentOS-Storage-SIG/centos-release-storage-common/master/RPM-GPG-KEY-CentOS-SIG-Storage'
          if ($operatingsystem != 'Fedora' and $operatingsystemmajrelease * 1 < 7) {
            $shared_storage_mountpoint = '/var/run/gluster/shared_storage'
          } else {
